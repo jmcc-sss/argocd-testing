@@ -25,7 +25,7 @@ spec:
     spec:
       project: dops
       source:
-        repoURL: https://github.com/your-org/argocd-poc.git
+        repoURL: git@github.com:jmcc-sss/argocd-testing.git
         targetRevision: HEAD
         path: 'common/{{environment}}/{{namespace}}/baseline'
       destination:
