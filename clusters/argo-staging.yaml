@@ -1,3 +1,3 @@
 name: argo-staging
-environment: dev
+environment: staging
 clusterUrl: https://192.168.1.85:6444
