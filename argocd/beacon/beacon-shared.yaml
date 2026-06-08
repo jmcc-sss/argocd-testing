@@ -10,12 +10,12 @@ spec:
           - name
         generators:
           - git:
-              repoURL: git@github.com:secondsightsolutions/jmcc-sss/argocd-testing.git
+              repoURL: git@github.com:jmcc-sss/argocd-testing.git
               revision: HEAD
               files:
                 - path: common/*/*/baseline/config.yaml
           - git:
-              repoURL: git@github.com:secondsightsolutions/jmcc-sss/argocd-testing.git
+              repoURL: git@github.com:jmcc-sss/argocd-testing.git
               revision: HEAD
               files:
                 - path: config/clusters/common/*.json

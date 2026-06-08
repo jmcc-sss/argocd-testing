@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: argocd
   source:
-    repoURL: git@github.com:secondsightsolutions/jmcc-sss/argocd-testing.git
+    repoURL: git@github.com:jmcc-sss/argocd-testing.git
     targetRevision: main
     path: argocd/beacon/
   syncPolicy:
