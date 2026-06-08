@@ -1,0 +1,5 @@
+# required: to tell the appset which cluster to deploy this to
+name: argo-staging
+# required: to tell the appset which namespace to deploy this to
+namespace: beacon
+environment: staging

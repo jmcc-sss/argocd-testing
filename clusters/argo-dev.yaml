@@ -1,0 +1,3 @@
+name: argo-dev
+environment: dev
+clusterUrl: https://192.168.1.85:6444

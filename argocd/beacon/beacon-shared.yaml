@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: beacon-baseline
+  namespace: argocd
+spec:
+  generators:
+    - merge:
+        mergeKeys:
+          - name
+        generators:
+          - git:
+              repoURL: git@github.com:secondsightsolutions/jmcc-sss/argocd-testing.git
+              revision: HEAD
+              files:
+                - path: common/*/*/baseline/config.yaml
+          - git:
+              repoURL: git@github.com:secondsightsolutions/jmcc-sss/argocd-testing.git
+              revision: HEAD
+              files:
+                - path: config/clusters/common/*.json
+  template:
+    metadata:
+      name: '{{.name}}-{{.namespace}}-baseline'
+    spec:
+      project: dops
+      source:
+        repoURL: https://github.com/your-org/argocd-poc.git
+        targetRevision: HEAD
+        path: 'common/{{environment}}/{{namespace}}/baseline'
+      destination:
+        server: '{{clusterUrl}}'
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
