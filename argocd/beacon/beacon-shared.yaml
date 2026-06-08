@@ -13,12 +13,12 @@ spec:
               repoURL: git@github.com:jmcc-sss/argocd-testing.git
               revision: HEAD
               files:
-                - path: common/*/*/baseline/config.yaml
+                - path: beacon/*/*/baseline/config.yaml
           - git:
               repoURL: git@github.com:jmcc-sss/argocd-testing.git
               revision: HEAD
               files:
-                - path: config/clusters/common/*.json
+                - path: clusters/*.yaml
   template:
     metadata:
       name: '{{.name}}-{{.namespace}}-baseline'
