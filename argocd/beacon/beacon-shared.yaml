@@ -27,10 +27,10 @@ spec:
       source:
         repoURL: https://github.com/your-org/argocd-poc.git
         targetRevision: HEAD
-        path: 'common/{{environment}}/{{namespace}}/baseline'
+        path: 'common/{{.environment}}/{{.namespace}}/baseline'
       destination:
-        server: '{{clusterUrl}}'
-        namespace: '{{namespace}}'
+        server: '{{.clusterUrl}}'
+        namespace: '{{.namespace}}'
       syncPolicy:
         automated:
           prune: true
