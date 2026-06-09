@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: beacon-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: git@github.com:jmcc-sss/argocd-testing.git
+        revision: main
+        files:
+          - path: beacon/*/*/*/config.yaml
+  template:
+    metadata:
+      name: "{{ .name }}-{{ .namespace }}-meoous"
+    spec:
+      project: beacon
+      destination:
+        server: "{{ .clusterUrl }}"
+        namespace: "{{ .namespace }}"
+      #sources: | # TEMPLATE??
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+  templatePatch: |
+    spec:
+      sources:
+        {{- range .sources }}
+        {{- if eq .type "helm" }}
+        - repoURL: "{{ .helmRepoURL }}"
+          chart: "{{ .chart }}"
+          targetRevision: "{{ .helmTargetRevision }}"
+          helm:
+            valueFiles:
+              {{- range .helmValueFiles }}
+              - "{{ . }}"
+              {{- end }}
+        {{- else if eq .type "git" }}
+        - repoURL: "{{ .gitRepoURL }}"
+          targetRevision: "{{ .gitTargetRevision }}"
+          path: "{{ .gitPath }}"
+          ref: "{{ .gitRef }}"
+        {{- else if eq .type "raw" }}
+        - repoURL: "{{ .rawRepoURL }}"
+          targetRevision: "{{ .rawTargetRevision }}"
+          path: "{{ .rawPath }}"
+        {{- end }}
+        {{- end }}
