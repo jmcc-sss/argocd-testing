@@ -1,0 +1,26 @@
+# REQUIRED: to tell the appset which cluster to deploy this to
+name: argo-dev
+# REQUIRED: to tell the appset which namespace to deploy this to
+namespace: beacon
+environment: dev
+clusterUrl: https://192.168.1.85:6444
+
+# REQUIRED: helps build the argocd application name
+appName: baseline
+
+sources:
+- type: raw
+  rawRepoURL: git@github.com:jmcc-sss/argocd-testing.git
+  rawTargetRevision: main
+  rawPath: beacon/dev/beacon/baseline
+# - type: helm
+#   helmRepoURL: https://github.com/your-org/my-app.git
+#   helmTargetRevision: main
+#   helmValueFiles:
+#     - values.yaml
+#     - values-prod.yaml
+# - type: git
+#   gitRepoURL: git@github.com:jmcc-sss/argocd-testing.git
+#   gitTargetRevision: main
+#   gitPath: deploy/helm
+#   gitRef: values
